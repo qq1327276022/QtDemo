@@ -16,6 +16,7 @@ INCLUDEPATH += ./MainWindow
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    MainWindow/mainwidget.cpp \
     main.cpp \
     ./MainWindow/mainwindow.cpp \
     ./MainWindow/menulistview.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     ./MainWindow/menulistview.h \
     ./MainWindow/menulistviewdelegate.h \
     ./MainWindow/menulistviewproxymodel.h \
+    MainWindow/mainwidget.h \
     utils.h
 
 # Default rules for deployment.

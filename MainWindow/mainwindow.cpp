@@ -1,9 +1,14 @@
 #include "mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    m_listview = new MenuListview;
+    setAutoFillBackground(true);
+
+
+    m_widget = new MainWidget;
+    setCentralWidget(m_widget);
 }
 
 MainWindow::~MainWindow()

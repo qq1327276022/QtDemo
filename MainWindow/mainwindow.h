@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mainwidget.h"
+
 #include <QMainWindow>
-
-#include "menulistview.h"
-
+#include <QApplication>
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,6 +14,7 @@ public:
     ~MainWindow();
 
 private:
-    MenuListview *m_listview = nullptr;
+    MainWidget *m_widget;
+
 };
 #endif // MAINWINDOW_H

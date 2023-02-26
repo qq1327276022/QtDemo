@@ -1,5 +1,7 @@
 #include "menulistview.h"
 #include <QDebug>
+#include <QPalette>
+
 MenuListview::MenuListview(QWidget *parent)
     :QListView(parent)
 {
@@ -58,6 +60,11 @@ bool MenuListview::insertData(const QMap<QString, QStringList> &dataMap)
 
 void MenuListview::initListView()
 {
+    QPalette basePal =  this->palette();
+    basePal.setColor (QPalette::Base, Qt::transparent);
+    this->setPalette(basePal);
+    this->setFrameShape(QFrame::NoFrame);
+
     m_listviewDelegate = new MenuListViewDelegate;
     setItemDelegate(m_listviewDelegate);
 
