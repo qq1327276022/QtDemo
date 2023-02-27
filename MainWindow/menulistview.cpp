@@ -41,14 +41,10 @@ bool MenuListview::insertData(const QMap<QString, QStringList> &dataMap)
             return false;
         }
 
-        QModelIndex index = m_standardItemModel->index(rows++,0);
-        //插入一级菜单
-        m_standardItemModel->setData(index,QVariant::fromValue(MenuData(firstTitle,true,true)),Qt::UserRole + 1);
+        setModelIndexData(rows++,MenuData(firstTitle,true,true));
 
         foreach(QString secondTitle, secondTitlelist){
-            QModelIndex index = m_standardItemModel->index(rows++,0);
-            //插入二级菜单
-            m_standardItemModel->setData(index,QVariant::fromValue(MenuData(secondTitle,false,true)),Qt::UserRole + 1);
+            setModelIndexData(rows++,MenuData(secondTitle,false,true));
         }
 
         m_firstTitleInMenuCountMap.insert(firstTitle,secondTitlelist.count());
@@ -83,18 +79,51 @@ void MenuListview::initListView()
 
 bool MenuListview::changeSecondLevelMenuExpandStatus(int firstMenuDataIndex, int secondLevelMenuCount)
 {
-    QModelIndex modelIndex;
+    MenuData indexData;
     for(int index = firstMenuDataIndex;index <= firstMenuDataIndex + secondLevelMenuCount;index++){
-        modelIndex = m_standardItemModel->index(index,0);
-        MenuData indexData = modelIndex.data(Qt::UserRole + 1).value<MenuData>();
-        indexData.m_isExpanded = !indexData.m_isExpanded;
-        if(!m_standardItemModel->setData(modelIndex,QVariant::fromValue(indexData),Qt::UserRole + 1)){
+        if(!getModelIndexData(index,indexData)){
             return false;
         }
+
+        indexData.m_isExpanded = !indexData.m_isExpanded;
+
+        if(!setModelIndexData(index,indexData)){
+            return false;
+        };
     }
 
     return true;
 }
+
+bool MenuListview::getModelIndexData(int index, MenuData &data)
+{
+    if(index < 0 || index >= m_standardItemModel->rowCount()){
+        return false;
+    }
+
+    QModelIndex modelIndex = m_standardItemModel->index(index,0);
+    data = modelIndex.data(Qt::UserRole + 1).value<MenuData>();
+    return true;
+}
+
+bool MenuListview::getModelIndexData(const QModelIndex &index, MenuData &data)
+{
+    data = index.data(Qt::UserRole + 1).value<MenuData>();
+    return true;
+}
+
+bool MenuListview::setModelIndexData(int index, const MenuData &data)
+{
+    QModelIndex modelIndex = m_standardItemModel->index(index,0);
+    return  m_standardItemModel->setData(modelIndex,QVariant::fromValue(data),Qt::UserRole + 1);
+}
+
+bool MenuListview::setModelIndexData(const QModelIndex &index, const MenuData &data)
+{
+    return  m_standardItemModel->setData(index,QVariant::fromValue(data),Qt::UserRole + 1);
+}
+
+
 
 void MenuListview::mouseReleaseEvent(QMouseEvent *event)
 {
@@ -109,10 +138,13 @@ void MenuListview::mouseReleaseEvent(QMouseEvent *event)
         //判断是否为一级标题
         if(releaseIndexData.m_isExpandable){
             int secondMenuCount = m_firstTitleInMenuCountMap.value(releaseIndexData.m_title);
-            QModelIndex modelIndex;
             for(int i = 0 ; i < m_standardItemModel->rowCount() ; i++){
-                 modelIndex = m_standardItemModel->index(i,0);
-                 MenuData indexData = modelIndex.data(Qt::UserRole + 1).value<MenuData>();
+//                 modelIndex = m_standardItemModel->index(i,0);
+                 MenuData indexData;
+                 if(!getModelIndexData(i,indexData)){
+                     break;
+                 }
+
                  if(!indexData.m_isExpandable){
                      continue;
                  }
@@ -126,4 +158,15 @@ void MenuListview::mouseReleaseEvent(QMouseEvent *event)
     }
 
     QListView::mouseReleaseEvent(event);
+}
+
+void MenuListview::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+    Q_UNUSED(previous)
+
+    MenuData data;
+    getModelIndexData(current,data);
+//    emit currentPageChanged(data.m_title);
+
+    QListView::currentChanged(current,previous);
 }

@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,6 +17,8 @@ INCLUDEPATH += ./MainWindow
 
 SOURCES += \
     MainWindow/mainwidget.cpp \
+    WeatherWidget/weatherwidget.cpp \
+    WeatherWidget/weatherwidgetservice.cpp \
     main.cpp \
     ./MainWindow/mainwindow.cpp \
     ./MainWindow/menulistview.cpp \
@@ -30,6 +32,8 @@ HEADERS += \
     ./MainWindow/menulistviewdelegate.h \
     ./MainWindow/menulistviewproxymodel.h \
     MainWindow/mainwidget.h \
+    WeatherWidget/weatherwidget.h \
+    WeatherWidget/weatherwidgetservice.h \
     utils.h
 
 # Default rules for deployment.

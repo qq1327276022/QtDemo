@@ -2,6 +2,7 @@
 #define UTILS_H
 #include <QString>
 #include <QMetaType>
+#include <QDebug>
 
 struct MenuData{
     QString m_title;
@@ -26,6 +27,8 @@ class Utils
 {
 public:
     Utils();
+    static bool getWeatherServiceKey(QString &private_key,QString &uid);
+    static QString getWeatherServiceSig(QString &url,QString &private_key);
 };
 
 #endif // UTILS_H

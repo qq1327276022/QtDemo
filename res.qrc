@@ -4,5 +4,6 @@
         <file>icon/up.png</file>
         <file>icon/dark_down.png</file>
         <file>icon/dark_up.png</file>
+        <file>Settings/networkSettings.ini</file>
     </qresource>
 </RCC>

@@ -19,19 +19,28 @@ public:
 private:
     void initListView();
     bool changeSecondLevelMenuExpandStatus(int firstMenuDataIndex,int secondLevelMenuCount);
+    bool getModelIndexData(int index,MenuData &data);
+    bool getModelIndexData(const QModelIndex &index,MenuData &data);
 
+    bool setModelIndexData(int index,const MenuData &data);
+    bool setModelIndexData(const QModelIndex &index,const MenuData &data);
 private:
     MenuListViewDelegate *m_listviewDelegate = nullptr;
     MenuListviewProxymodel *m_listviewProxyModel = nullptr;
     QStandardItemModel *m_standardItemModel = nullptr;
-
-
     //记录一级菜单标题 以及该一级菜单对应二级菜单数目
     QMap<QString ,int> m_firstTitleInMenuCountMap;
+
+signals:
+    void currentPageChanged(const QString &currentPage);
 
     // QWidget interface
 protected:
     void mouseReleaseEvent(QMouseEvent *event);
+
+    // QAbstractItemView interface
+protected slots:
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 };
 
 #endif // MENULISTVIEW_H
