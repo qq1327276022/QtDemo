@@ -17,7 +17,7 @@ bool Utils::getWeatherServiceKey(QString &private_key, QString &uid)
 {
     QFile file(":/Settings/networkSettings.ini");
     if (!file.exists()) {
-        qWarning() << "desktop文件不存在" << endl;
+        qWarning() << " get weather service info error!" << endl;
         return false;
     }
 

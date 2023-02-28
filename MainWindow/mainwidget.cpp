@@ -1,4 +1,6 @@
 #include "mainwidget.h"
+#include "WeatherWidget/weatherwidget.h"
+
 #include <QPalette>
 #include <QPushButton>
 
@@ -23,6 +25,9 @@ void MainWidget::initUi()
     mainLayout->addWidget(m_leftMenu);
     mainLayout->addSpacing(10);
     mainLayout->addWidget(m_rightMainWidget);
+
+    WeatherWidget *Widget = new WeatherWidget;
+    m_rightMainWidget->addWidget(Widget);
 
     this->setLayout(mainLayout);
 

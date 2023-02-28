@@ -74,9 +74,6 @@ void WeatherWidgetService::onGetCityWeatherInfo(QUuid id, const QString &city)
 //    心知天气 api调试通过
     QString time = QString::number(QDateTime::currentDateTime().toTime_t());
     QString ttl = "500";
-//    QString uid;
-//    QString private_key;
-//    Utils::getWeatherServiceKey(private_key,uid);
     QString para = QString("ts=%1&ttl=%2&uid=%3").arg(time).arg(ttl).arg(m_uid);
     QString s = Utils::getWeatherServiceSig(para,m_privateKey);
     QString paraSig = para + QString("&sig=%1").arg(s);

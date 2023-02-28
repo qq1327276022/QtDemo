@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setAutoFillBackground(true);
+//    setAutoFillBackground(true);
 
 
     m_widget = new MainWidget;

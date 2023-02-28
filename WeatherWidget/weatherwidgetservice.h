@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QThread>
-
+#include <QUuid>
 
 class WeatherWidgetService : public QObject
 {
@@ -13,16 +13,17 @@ public:
     void startThread();
     void quitThread();
     static WeatherWidgetService *getWeatherWidgetServiceInstence();
-    int getCityWeatherInfo(const QString &city);
+    void getCityWeatherInfo(const QUuid &id, const QString &city);
 
 private:
     WeatherWidgetService(const WeatherWidgetService&);
     WeatherWidgetService& operator=(const WeatherWidgetService&);
 
 signals:
+    void getCityWeatherInfoFinished(QUuid id,const QByteArray &replyData);
 
 private  slots:
-    void getCityWeatherInfo(int requestCount,const QString &city);
+    void onGetCityWeatherInfo(QUuid id,const QString &city);
 
 private:
     QThread *m_thread = nullptr;

@@ -17,6 +17,7 @@ INCLUDEPATH += ./MainWindow
 
 SOURCES += \
     MainWindow/mainwidget.cpp \
+    WeatherWidget/weatherdatamanager.cpp \
     WeatherWidget/weatherwidget.cpp \
     WeatherWidget/weatherwidgetservice.cpp \
     main.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     ./MainWindow/menulistview.cpp \
     ./MainWindow/menulistviewdelegate.cpp \
     ./MainWindow/menulistviewproxymodel.cpp \
+    rightbasewidget.cpp \
     utils.cpp
 
 HEADERS += \
@@ -32,8 +34,11 @@ HEADERS += \
     ./MainWindow/menulistviewdelegate.h \
     ./MainWindow/menulistviewproxymodel.h \
     MainWindow/mainwidget.h \
+    WeatherWidget/weatherDataType.h \
+    WeatherWidget/weatherdatamanager.h \
     WeatherWidget/weatherwidget.h \
     WeatherWidget/weatherwidgetservice.h \
+    rightbasewidget.h \
     utils.h
 
 # Default rules for deployment.
